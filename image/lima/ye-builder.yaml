@@ -1,0 +1,22 @@
+# image/lima/ye-builder.yaml
+base: template://debian-13
+
+cpus: 4
+memory: "8GiB"
+disk: "60GiB"
+
+# Lima 默认把宿主目录挂到客机的相同路径。把 ~/Codes/ye-os 换成你的仓库路径。
+mounts:
+  - location: "~/Codes/ye-os"
+    writable: true
+
+mountType: "virtiofs"
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/bash
+      set -eux
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get install -y mmdebstrap gdisk btrfs-progs dosfstools rsync zstd acl

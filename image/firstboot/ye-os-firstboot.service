@@ -1,0 +1,13 @@
+[Unit]
+Description=ye-os first boot setup
+ConditionPathExists=!/var/lib/ye-os/firstboot.done
+After=local-fs.target systemd-tmpfiles-setup.service
+Before=ssh.service getty.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/ye-os/firstboot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

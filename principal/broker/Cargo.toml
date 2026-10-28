@@ -1,0 +1,17 @@
+[package]
+name = "ye-broker"
+version = "0.1.0"
+edition = "2021"
+
+# 空的 [workspace] 表让这个 crate 自成一个工作区。第 2 章在仓库根建 Cargo
+# 工作区时不会把它卷进去，也不用改第 2 章的 members 列表。
+[workspace]
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+zbus = { version = "5", default-features = false, features = ["tokio"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

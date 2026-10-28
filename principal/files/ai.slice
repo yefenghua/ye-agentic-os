@@ -1,0 +1,19 @@
+[Unit]
+Description=ye-os AI agent slice
+Documentation=file:///usr/local/src/ye-os/docs/tutorials/ch01-principal.md
+Before=slices.target
+
+[Slice]
+CPUAccounting=yes
+MemoryAccounting=yes
+IOAccounting=yes
+TasksAccounting=yes
+
+# 两个核的量；超过就被节流，不是被杀。
+CPUQuota=200%
+# 超过 MemoryHigh 开始回收并放慢，碰到 MemoryMax 才 OOM。
+MemoryHigh=2G
+MemoryMax=2560M
+MemorySwapMax=0
+TasksMax=512
+IOWeight=50

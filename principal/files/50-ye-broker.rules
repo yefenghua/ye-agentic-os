@@ -1,0 +1,20 @@
+polkit.addRule(function (action, subject) {
+    var prefix = "org.yeos.broker.";
+    if (action.id.indexOf(prefix) !== 0) {
+        return polkit.Result.NOT_HANDLED;
+    }
+    var name = action.id.substring(prefix.length);
+
+    if (subject.user === "ai") {
+        if (name.indexOf("pkg.") === 0 ||
+            name === "unit.restart" ||
+            name.indexOf("snapshot.") === 0) {
+            return polkit.Result.YES;
+        }
+        if (name === "file.write_etc") {
+            return polkit.Result.AUTH_ADMIN;
+        }
+        return polkit.Result.NO;
+    }
+    return polkit.Result.NOT_HANDLED;
+});
